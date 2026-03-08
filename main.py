@@ -1,47 +1,39 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
+# load dataset
 df = pd.read_csv("data/Sample - Superstore.csv", encoding="latin1")
 
-print(df.head())
-
-# Dataset size 
-print("Dataset Shape:", df.shape)
-
-#column Names
-print("\nColumns:")
-
-#dataset info
-print("\nDataset Info:")
-print(df.info())
-
-#convert date columns 
+# convert date columns
 df["Order Date"] = pd.to_datetime(df["Order Date"])
 df["Ship Date"] = pd.to_datetime(df["Ship Date"])
 
-print("\nDate conversion done")
 
-print(df.dtypes)
+# ==============================
+# TOTAL REVENUE
+# ==============================
 
-# total revenue
 total_revenue = df["Sales"].sum()
 print("\nTotal Revenue:", total_revenue)
 
-# sales by category
+
+# ==============================
+# SALES BY CATEGORY
+# ==============================
+
 category_sales = df.groupby("Category")["Sales"].sum()
 
 print("\nSales by Category:")
 print(category_sales)
 
-# extract month from order date
+
+# ==============================
+# MONTHLY SALES TREND
+# ==============================
+
 df["Month"] = df["Order Date"].dt.month
-
-# monthly sales
 monthly_sales = df.groupby("Month")["Sales"].sum()
-
-print("\nMonthly Sales:")
-print(monthly_sales)
-
-import matplotlib.pyplot as plt
 
 plt.figure(figsize=(8,5))
 monthly_sales.plot(kind="line", marker="o")
@@ -51,13 +43,13 @@ plt.xlabel("Month")
 plt.ylabel("Sales")
 
 plt.savefig("images/monthly_sales_trend.png")
-plt.show()
 
-# top 10 products by sales
+
+# ==============================
+# TOP 10 PRODUCTS
+# ==============================
+
 top_products = df.groupby("Product Name")["Sales"].sum().sort_values(ascending=False).head(10)
-
-print("\nTop 10 Products by Sales:")
-print(top_products)
 
 plt.figure(figsize=(10,6))
 
