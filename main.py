@@ -64,3 +64,69 @@ plt.xticks(rotation=75)
 plt.savefig("images/top_products_sales.png")
 
 plt.show()
+
+# ==============================
+# PROFIT BY CATEGORY
+# ==============================
+
+profit_category = df.groupby("Category")["Profit"].sum()
+
+print("\nProfit by Category:")
+print(profit_category)
+
+plt.figure(figsize=(8,5))
+
+profit_category.plot(kind="bar", color="green")
+
+plt.title("Profit by Category")
+plt.xlabel("Category")
+plt.ylabel("Profit")
+
+plt.savefig("images/profit_by_category.png")
+plt.show()
+
+
+# ==============================
+# REGION WISE PROFIT
+# ==============================
+
+region_profit = df.groupby("Region")["Profit"].sum()
+
+print("\nProfit by Region:")
+print(region_profit)
+
+plt.figure(figsize=(8,5))
+
+region_profit.plot(kind="bar")
+
+plt.title("Region Wise Profit")
+plt.xlabel("Region")
+plt.ylabel("Profit")
+
+plt.savefig("images/region_profit.png")
+plt.show()
+
+
+# ==============================
+# LOSS MAKING PRODUCTS
+# ==============================
+
+loss_products = df[df["Profit"] < 0]
+
+top_loss_products = loss_products.groupby("Product Name")["Profit"].sum().sort_values().head(10)
+
+print("\nTop Loss Making Products:")
+print(top_loss_products)
+
+plt.figure(figsize=(10,6))
+
+top_loss_products.plot(kind="bar", color="red")
+
+plt.title("Top 10 Loss Making Products")
+plt.xlabel("Product")
+plt.ylabel("Loss")
+
+plt.xticks(rotation=75)
+
+plt.savefig("images/loss_products.png")
+plt.show()
