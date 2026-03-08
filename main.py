@@ -31,3 +31,24 @@ category_sales = df.groupby("Category")["Sales"].sum()
 
 print("\nSales by Category:")
 print(category_sales)
+
+# extract month from order date
+df["Month"] = df["Order Date"].dt.month
+
+# monthly sales
+monthly_sales = df.groupby("Month")["Sales"].sum()
+
+print("\nMonthly Sales:")
+print(monthly_sales)
+
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8,5))
+monthly_sales.plot(kind="line", marker="o")
+
+plt.title("Monthly Sales Trend")
+plt.xlabel("Month")
+plt.ylabel("Sales")
+
+plt.savefig("images/monthly_sales_trend.png")
+plt.show()
