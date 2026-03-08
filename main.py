@@ -21,3 +21,13 @@ df["Ship Date"] = pd.to_datetime(df["Ship Date"])
 print("\nDate conversion done")
 
 print(df.dtypes)
+
+# total revenue
+total_revenue = df["Sales"].sum()
+print("\nTotal Revenue:", total_revenue)
+
+# sales by category
+category_sales = df.groupby("Category")["Sales"].sum()
+
+print("\nSales by Category:")
+print(category_sales)
