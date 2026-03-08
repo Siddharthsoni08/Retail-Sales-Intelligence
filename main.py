@@ -52,3 +52,23 @@ plt.ylabel("Sales")
 
 plt.savefig("images/monthly_sales_trend.png")
 plt.show()
+
+# top 10 products by sales
+top_products = df.groupby("Product Name")["Sales"].sum().sort_values(ascending=False).head(10)
+
+print("\nTop 10 Products by Sales:")
+print(top_products)
+
+plt.figure(figsize=(10,6))
+
+top_products.plot(kind="bar")
+
+plt.title("Top 10 Best Selling Products")
+plt.xlabel("Product")
+plt.ylabel("Sales")
+
+plt.xticks(rotation=75)
+
+plt.savefig("images/top_products_sales.png")
+
+plt.show()
